@@ -1,5 +1,7 @@
 #import bevy_pbr::forward_io::VertexOutput
 
+#import custom_shader::custom_functions::apply_lighting;
+
 struct CustomMaterial {
     color: vec4<f32>,
 };
@@ -10,13 +12,15 @@ struct CustomMaterial {
 
 @fragment
 fn fragment(
-    mesh: VertexOutput,
+    in: VertexOutput,
+    @builtin(front_facing) is_front: bool,
 ) -> @location(0) vec4<f32> {
     var out: vec4<f32>;
+    let light_color = apply_lighting(in);
     #ifdef USE_COLOR
-    out = material.color;
+    out = material.color * light_color;
     #else
-    out = vec4(1.0);
+    out = vec4(1.0) * light_color;
     #endif
     return out;
 }
