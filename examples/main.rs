@@ -12,17 +12,14 @@ fn setup(
     mut commands: Commands,
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<CustomMaterial>>,
-    mut standard_materials: ResMut<Assets<StandardMaterial>>,
+    mut standard_materials: ResMut<Assets<StandardMaterial>>, 
     asset_server: Res<AssetServer>,
 ) {
     // cube
     commands.spawn(CustomBundle {
-        mesh: meshes.add(Mesh::from(shape::Cube { size: 1.0 })),
-        transform: Transform::from_xyz(0.0, 0.5, 0.0),
-        material: materials.add(CustomMaterial {
-            base_color_texture: Some(asset_server.load("branding/icon.png")),
-            color: Color::rgb(1.0, 0.5, 0.3),
-        }),
+        mesh: meshes.add(Mesh::from(shape::Capsule::default())),
+        transform: Transform::from_xyz(1.0, 1.0, 1.0),
+        material: materials.add(Color::rgb(0.8, 0.8, 0.8).into()),
         ..default()
     });
 
@@ -34,7 +31,7 @@ fn setup(
 
     commands.spawn(PbrBundle {
         mesh: meshes.add(Mesh::from(shape::Capsule::default())),
-        transform: Transform::from_xyz(1.0, 1.0, 1.0),
+        transform: Transform::from_xyz(0.0, 0.5, 0.0),
         material: standard_materials.add(Color::rgb(0.5, 0.5, 0.3).into()),
         ..default()
     });
