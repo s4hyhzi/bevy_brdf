@@ -45,18 +45,15 @@ fn fragment(
     out.color = main_pass_post_lighting_processing(pbr_input, out.color);
 #endif
 
-    var colors: array<vec4<f32>, 2>;
-    colors[0] = vec4(0.399287, 0.524083, 0.699776, 1.0);
-    colors[1] = vec4(0.739922, 0.787485, 0.846145, 1.0);
+    let colors: array<vec4<f32>, 2> = array<vec4<f32>, 2>(
+        vec4<f32>(0.399287, 0.524083, 0.699776, 1.0),
+        vec4<f32>(0.739922, 0.787485, 0.846145, 1.0)
+    );
 
-    if (out.color.r <= 0.109155) {
-        out.color = colors[0];
-    } else if(out.color.r < 0.1637 && out.color.r > 0.109155) {
-        out.color = mix(colors[0], colors[1], (out.color.r - 0.109155) / (0.1637 - 0.109155));
-    } else {
-        out.color = colors[1];
-    }
-    
+    // 假设 out.color 是一个 vec4<f32> 类型，并且已经定义好了
+    var t: f32 = (out.color.r - 0.109155) / (0.1637 - 0.109155);
+    out.color = mix(colors[0], colors[1], clamp(t, 0.0, 1.0));
+
 
     return out;
 }
