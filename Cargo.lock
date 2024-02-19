@@ -769,6 +769,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "bevy_npr"
+version = "0.1.0"
+dependencies = [
+ "bevy",
+ "bevy_egui",
+]
+
+[[package]]
 name = "bevy_pbr"
 version = "0.12.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1058,14 +1066,6 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn 2.0.49",
-]
-
-[[package]]
-name = "bevy_wgsl"
-version = "0.1.0"
-dependencies = [
- "bevy",
- "bevy_egui",
 ]
 
 [[package]]

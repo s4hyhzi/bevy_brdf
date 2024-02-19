@@ -1,7 +1,9 @@
 [package]
-name = "bevy_wgsl"
+name = "bevy_npr"
 version = "0.1.0"
 edition = "2021"
+authors = ["ow666faka@qq.com"]
+description = "A cartoon rendering plugin based on Bevyengine"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

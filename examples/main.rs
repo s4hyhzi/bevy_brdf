@@ -1,7 +1,7 @@
 use std::f32::consts::PI;
 
 use bevy::prelude::*;
-use bevy_wgsl::toon::{ToonBundle, ToonMaterial, ToonShaderPlugin};
+use bevy_npr::toon::{ToonBundle, ToonMaterial, ToonShaderPlugin};
 
 fn main() {
     App::new()
@@ -30,13 +30,6 @@ fn setup(
         material: standard_materials.add(Color::SILVER.into()),
         ..default()
     });
-
-    // commands.spawn(PbrBundle {
-    //     mesh: meshes.add(Mesh::from(shape::Capsule::default())),
-    //     transform: Transform::from_xyz(0.0, 0.5, 0.0),
-    //     material: standard_materials.add(Color::rgb(0.5, 0.5, 0.3).into()),
-    //     ..default()
-    // });
 
     commands.spawn(DirectionalLightBundle {
         directional_light: DirectionalLight {
