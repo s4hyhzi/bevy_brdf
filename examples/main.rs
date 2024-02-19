@@ -31,12 +31,12 @@ fn setup(
         ..default()
     });
 
-    commands.spawn(PbrBundle {
-        mesh: meshes.add(Mesh::from(shape::Capsule::default())),
-        transform: Transform::from_xyz(0.0, 0.5, 0.0),
-        material: standard_materials.add(Color::rgb(0.5, 0.5, 0.3).into()),
-        ..default()
-    });
+    // commands.spawn(PbrBundle {
+    //     mesh: meshes.add(Mesh::from(shape::Capsule::default())),
+    //     transform: Transform::from_xyz(0.0, 0.5, 0.0),
+    //     material: standard_materials.add(Color::rgb(0.5, 0.5, 0.3).into()),
+    //     ..default()
+    // });
 
     commands.spawn(DirectionalLightBundle {
         directional_light: DirectionalLight {
