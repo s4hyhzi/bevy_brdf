@@ -1,11 +1,13 @@
 use std::f32::consts::PI;
 
 use bevy::prelude::*;
+use bevy_inspector_egui::quick::WorldInspectorPlugin;
 use bevy_npr::toon::{ToonBundle, ToonMaterial, ToonShaderPlugin};
 
 fn main() {
     App::new()
         .add_plugins((DefaultPlugins, ToonShaderPlugin))
+        .add_plugins(WorldInspectorPlugin::new())
         .add_systems(Startup, setup)
         .run();
 }
@@ -14,7 +16,7 @@ fn setup(
     mut commands: Commands,
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<ToonMaterial>>,
-    mut standard_materials: ResMut<Assets<StandardMaterial>>, 
+    mut standard_materials: ResMut<Assets<StandardMaterial>>,
     _asset_server: Res<AssetServer>,
 ) {
     // cube

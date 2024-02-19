@@ -15,3 +15,4 @@ bevy = "0.12"
 [dev-dependencies]
 bevy = "0.12"
 bevy_egui = "0.23.0"
+bevy-inspector-egui = "0.22"
