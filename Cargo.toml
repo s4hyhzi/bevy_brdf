@@ -2,8 +2,10 @@
 name = "bevy_npr"
 version = "0.1.0"
 edition = "2021"
-authors = ["ow666faka@qq.com"]
+authors = ["galgamecloud@gmail.com"]
 description = "A cartoon rendering plugin based on Bevyengine"
+
+exclude = ["assets/*"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
