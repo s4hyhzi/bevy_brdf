@@ -1,17 +1,13 @@
-use bevy::asset::{load_internal_asset, Asset, Handle};
+use bevy::asset::{load_internal_asset, Asset, AssetApp, Assets, Handle};
 use bevy::log::info;
 use bevy::math::Vec4;
 use bevy::pbr::deferred::DEFAULT_PBR_DEFERRED_LIGHTING_PASS_ID;
-use bevy::pbr::{
-    AlphaMode, Material, MaterialMeshBundle
-};
+use bevy::pbr::{AlphaMode, Material, MaterialMeshBundle};
 use bevy::prelude::{Color, Image, Plugin, Shader};
 
 use bevy::reflect::{std_traits::ReflectDefault, Reflect};
 use bevy::render::render_asset::RenderAssets;
-use bevy::render::render_resource::{
-    AsBindGroup, AsBindGroupShaderType, ShaderRef, ShaderType
-};
+use bevy::render::render_resource::{AsBindGroup, AsBindGroupShaderType, ShaderRef, ShaderType};
 
 const ALPHA_MODE_MASK_BITS: u32 = 0b111;
 const ALPHA_MODE_SHIFT_BITS: u32 = 32 - ALPHA_MODE_MASK_BITS.count_ones();
@@ -43,7 +39,8 @@ impl Plugin for ToonShaderPlugin {
             app,
             TOON_BINDDINGS_HANDLE,
             "toon_bindings.wgsl",
-            Shader::from_wgsl);
+            Shader::from_wgsl
+        );
 
         load_internal_asset!(
             app,
@@ -52,7 +49,12 @@ impl Plugin for ToonShaderPlugin {
             Shader::from_wgsl
         );
 
-        app.add_plugins(bevy::pbr::MaterialPlugin::<ToonMaterial>::default());
+        app.register_asset_reflect::<ToonMaterial>()
+            .add_plugins(bevy::pbr::MaterialPlugin::<ToonMaterial>::default());
+
+        app.world
+            .resource_mut::<Assets<ToonMaterial>>()
+            .insert(Handle::<ToonMaterial>::default(), ToonMaterial::default())
     }
 }
 
