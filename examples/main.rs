@@ -1,3 +1,5 @@
+use std::f32::consts::PI;
+
 use bevy::prelude::*;
 use bevy_wgsl::toon::{ToonBundle, ToonMaterial, ToonShaderPlugin};
 
@@ -29,21 +31,24 @@ fn setup(
         ..default()
     });
 
-    // commands.spawn(PbrBundle {
-    //     mesh: meshes.add(Mesh::from(shape::Capsule::default())),
-    //     transform: Transform::from_xyz(0.0, 0.5, 0.0),
-    //     material: standard_materials.add(Color::rgb(0.5, 0.5, 0.3).into()),
-    //     ..default()
-    // });
+    commands.spawn(PbrBundle {
+        mesh: meshes.add(Mesh::from(shape::Capsule::default())),
+        transform: Transform::from_xyz(0.0, 0.5, 0.0),
+        material: standard_materials.add(Color::rgb(0.5, 0.5, 0.3).into()),
+        ..default()
+    });
 
-    commands.spawn(PointLightBundle {
-        point_light: PointLight {
-            intensity: 9000.0,
-            range: 100.,
+    commands.spawn(DirectionalLightBundle {
+        directional_light: DirectionalLight {
             shadows_enabled: true,
+            illuminance: 10_000.,
             ..default()
         },
-        transform: Transform::from_xyz(8.0, 16.0, 8.0),
+        transform: Transform {
+            translation: Vec3::new(2.0, 2.0, 2.0),
+            rotation: Quat::from_euler(EulerRot::XYZ, -PI / 4., PI / 6., 0.),
+            ..default()
+        },
         ..default()
     });
 
