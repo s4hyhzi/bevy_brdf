@@ -1,9 +1,9 @@
 use bevy::prelude::*;
-use bevy_wgsl::custom::{CustomBundle, CustomMaterial, CustomShaderPlugin};
+use bevy_wgsl::toon::{ToonBundle, ToonMaterial, ToonShaderPlugin};
 
 fn main() {
     App::new()
-        .add_plugins((DefaultPlugins, CustomShaderPlugin))
+        .add_plugins((DefaultPlugins, ToonShaderPlugin))
         .add_systems(Startup, setup)
         .run();
 }
@@ -11,12 +11,12 @@ fn main() {
 fn setup(
     mut commands: Commands,
     mut meshes: ResMut<Assets<Mesh>>,
-    mut materials: ResMut<Assets<CustomMaterial>>,
+    mut materials: ResMut<Assets<ToonMaterial>>,
     mut standard_materials: ResMut<Assets<StandardMaterial>>, 
-    asset_server: Res<AssetServer>,
+    _asset_server: Res<AssetServer>,
 ) {
     // cube
-    commands.spawn(CustomBundle {
+    commands.spawn(ToonBundle {
         mesh: meshes.add(Mesh::from(shape::Capsule::default())),
         transform: Transform::from_xyz(1.0, 1.0, 1.0),
         material: materials.add(Color::rgb(0.8, 0.8, 0.8).into()),
@@ -29,12 +29,12 @@ fn setup(
         ..default()
     });
 
-    commands.spawn(PbrBundle {
-        mesh: meshes.add(Mesh::from(shape::Capsule::default())),
-        transform: Transform::from_xyz(0.0, 0.5, 0.0),
-        material: standard_materials.add(Color::rgb(0.5, 0.5, 0.3).into()),
-        ..default()
-    });
+    // commands.spawn(PbrBundle {
+    //     mesh: meshes.add(Mesh::from(shape::Capsule::default())),
+    //     transform: Transform::from_xyz(0.0, 0.5, 0.0),
+    //     material: standard_materials.add(Color::rgb(0.5, 0.5, 0.3).into()),
+    //     ..default()
+    // });
 
     commands.spawn(PointLightBundle {
         point_light: PointLight {
