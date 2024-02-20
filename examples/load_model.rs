@@ -1,7 +1,7 @@
 //! Loads and renders a glTF file as a scene.
 
 use bevy::{pbr::DirectionalLightShadowMap, prelude::*};
-use bevy_inspector_egui::quick::WorldInspectorPlugin;
+// use bevy_inspector_egui::quick::WorldInspectorPlugin;
 use bevy_npr::toon::{ToonBundle, ToonMaterial, ToonShaderPlugin};
 use std::f32::consts::{FRAC_PI_4, PI};
 
@@ -9,15 +9,12 @@ fn main() {
     App::new()
         .insert_resource(DirectionalLightShadowMap { size: 4096 })
         .add_plugins((DefaultPlugins, ToonShaderPlugin))
-        .add_plugins(WorldInspectorPlugin::new())
+        // .add_plugins(WorldInspectorPlugin::new())
         .add_systems(PreStartup, setup)
         .add_systems(PreUpdate, update_materials)
         .add_systems(Update, animate_light_direction)
         .run();
 }
-
-#[derive(Component)]
-struct GLTFScene;
 
 fn setup(
     mut commands: Commands,
@@ -40,16 +37,14 @@ fn setup(
         ..default()
     });
 
-    commands
-        .spawn(SceneBundle {
-            scene: asset_server.load("models/tuzi.glb#Scene0".to_string()),
-            ..Default::default()
-        })
-        .insert(GLTFScene);
+    commands.spawn(SceneBundle {
+        scene: asset_server.load("models/tuzi.glb#Scene0".to_string()),
+        ..Default::default()
+    });
 
     commands.spawn(ToonBundle {
-        mesh: meshes.add(shape::Plane::from_size(50.0).into()),
-        material: toon_materials.add(Color::SILVER.into()),
+        mesh: meshes.add(Plane3d::default().mesh().size(50.0, 50.0)),
+        material: toon_materials.add(Color::SILVER),
         ..default()
     });
 }
@@ -60,17 +55,27 @@ fn update_materials(
     spheres: Query<(Entity, &Handle<StandardMaterial>, &Name)>,
 ) {
     for sphere in spheres.iter() {
-        let (entity, material, name) = sphere;
-        info!(
-            "update_materials, entity: {:?}, material: {:?}, name: {:?}",
-            entity, material, name
-        );
+        let (_entity, material, _name) = sphere;
+        // info!(
+        //     "update_materials, entity: {:?}, material: {:?}, name: {:?}",
+        //     entity, material, name
+        // );
+        let material_path = material.path();
+        match material_path {
+            Some(path) => {
+                if path.to_string().contains("models/tuzi.glb#Material2") {
+                    info!("update_materials, material: {:?}", material);
+                }
+            }
+            None => {}
+        }
+
         commands
             .entity(sphere.0)
             .remove::<Handle<StandardMaterial>>();
         commands
             .entity(sphere.0)
-            .insert(materials.add(Color::SILVER.into()));
+            .insert(materials.add(Color::SILVER));
     }
 }
 

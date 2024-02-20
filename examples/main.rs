@@ -1,13 +1,13 @@
 use std::f32::consts::PI;
 
 use bevy::prelude::*;
-use bevy_inspector_egui::quick::WorldInspectorPlugin;
+// use bevy_inspector_egui::quick::WorldInspectorPlugin;
 use bevy_npr::toon::{ToonBundle, ToonMaterial, ToonShaderPlugin};
 
 fn main() {
     App::new()
         .add_plugins((DefaultPlugins, ToonShaderPlugin))
-        .add_plugins(WorldInspectorPlugin::new())
+        // .add_plugins(WorldInspectorPlugin::new())
         .add_systems(Startup, setup)
         .run();
 }
@@ -21,15 +21,15 @@ fn setup(
 ) {
     // cube
     commands.spawn(ToonBundle {
-        mesh: meshes.add(Mesh::from(shape::Capsule::default())),
+        mesh: meshes.add(Capsule3d::default()),
         transform: Transform::from_xyz(1.0, 1.0, 1.0),
-        material: materials.add(Color::rgb(0.8, 0.8, 0.8).into()),
+        material: materials.add(Color::rgb(0.8, 0.8, 0.8)),
         ..default()
     });
 
     commands.spawn(PbrBundle {
-        mesh: meshes.add(shape::Plane::from_size(50.0).into()),
-        material: standard_materials.add(Color::SILVER.into()),
+        mesh: meshes.add(Plane3d::default().mesh().size(50.0, 50.0)),
+        material: standard_materials.add(Color::SILVER),
         ..default()
     });
 

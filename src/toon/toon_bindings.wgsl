@@ -7,4 +7,4 @@ struct ToonMaterial {
     deferred_lighting_pass_id: u32,
 };
 
-@group(1) @binding(0) var<uniform> material: ToonMaterial;
+@group(2) @binding(0) var<uniform> material: ToonMaterial;
