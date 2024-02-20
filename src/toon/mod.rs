@@ -154,8 +154,7 @@ impl AsBindGroupShaderType<ToonMaterialUniform> for ToonMaterial {
             AlphaMode::Add => flags |= ALPHA_MODE_ADD,
             AlphaMode::Multiply => flags |= ALPHA_MODE_MULTIPLY,
         };
-
-        info!("flags: {}", flags);
+        
         ToonMaterialUniform {
             base_color: self.base_color.as_linear_rgba_f32().into(),
             flags,
