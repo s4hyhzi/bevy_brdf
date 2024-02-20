@@ -1,5 +1,4 @@
 use bevy::asset::{load_internal_asset, Asset, AssetApp, Assets, Handle};
-use bevy::log::info;
 use bevy::math::Vec4;
 use bevy::pbr::deferred::DEFAULT_PBR_DEFERRED_LIGHTING_PASS_ID;
 use bevy::pbr::{AlphaMode, Material, MaterialMeshBundle};
@@ -154,7 +153,7 @@ impl AsBindGroupShaderType<ToonMaterialUniform> for ToonMaterial {
             AlphaMode::Add => flags |= ALPHA_MODE_ADD,
             AlphaMode::Multiply => flags |= ALPHA_MODE_MULTIPLY,
         };
-        
+
         ToonMaterialUniform {
             base_color: self.base_color.as_linear_rgba_f32().into(),
             flags,
