@@ -63,19 +63,19 @@ fn update_materials(
         let material_path = material.path();
         match material_path {
             Some(path) => {
-                if path.to_string().contains("models/tuzi.glb#Material2") {
+                if path.to_string().contains("models/tuzi.glb#Material0") {
                     info!("update_materials, material: {:?}", material);
+
+                    commands
+                        .entity(sphere.0)
+                        .remove::<Handle<StandardMaterial>>();
+                    commands
+                        .entity(sphere.0)
+                        .insert(materials.add(Color::SILVER));
                 }
             }
             None => {}
         }
-
-        commands
-            .entity(sphere.0)
-            .remove::<Handle<StandardMaterial>>();
-        commands
-            .entity(sphere.0)
-            .insert(materials.add(Color::SILVER));
     }
 }
 
